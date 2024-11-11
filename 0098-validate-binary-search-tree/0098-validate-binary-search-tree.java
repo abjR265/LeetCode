@@ -14,22 +14,26 @@
  * }
  */
 class Solution {
-    public boolean ValidBST(TreeNode root, Integer low, Integer high) {
-        
-        if(root == null) return true;
-        
-        if(
-            (low != null && root.val<=low) ||
-            (high != null && root.val>=high)
-        ){
-            return false;
+    public boolean isValidBST(TreeNode root) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        Integer prev = null;
+
+        while (!stack.isEmpty() || root != null) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+
+            // If next element in inorder traversal
+            // is smaller than the previous one
+            // that's not BST.
+            if (prev != null && root.val <= prev) {
+                return false;
+            }
+            prev = root.val;
+            root = root.right;
         }
-           
-          return ( ValidBST(root.right, root.val, high) &&
-            ValidBST(root.left, low, root.val) );   
-    }
-    
-    public boolean isValidBST(TreeNode root){
-        return ValidBST(root, null, null);
+        return true;
     }
 }
