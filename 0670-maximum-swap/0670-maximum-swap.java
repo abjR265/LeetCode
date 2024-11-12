@@ -18,9 +18,9 @@ class Solution {
 
         // Perform the swap if a valid swap is found
         if (swapIdx1 != -1 && swapIdx2 != -1) {
-            numStr[swapIdx1] ^= numStr[swapIdx2];
-            numStr[swapIdx2] ^= numStr[swapIdx1];
-            numStr[swapIdx1] ^= numStr[swapIdx2];
+               char temp = numStr[swapIdx1];
+            numStr[swapIdx1] = numStr[swapIdx2];
+            numStr[swapIdx2] = temp;
         }
 
         return Integer.parseInt(new String(numStr)); // Return the new number or the original if no
